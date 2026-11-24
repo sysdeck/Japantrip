@@ -439,6 +439,8 @@ button.mp{cursor:pointer;font:500 .84rem var(--f-body);border:1px solid var(--li
 .nowbtn span{display:grid;line-height:1.3}
 .nowbtn b{font-weight:600}
 .nowbtn small{font-size:.78rem;opacity:.85}
+.tl li.past{opacity:.5}
+.tl li.past time{color:var(--muted)}
 </style>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
  <symbol id="i-map" viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></symbol>
@@ -1850,8 +1852,9 @@ function markNowIn(root, p){
   for (var k=0;k<lis.length;k++){
     var tm = (lis[k].querySelector('time')||{}).textContent||'', m=/(\d{1,2}):(\d{2})/.exec(tm); if(!m) continue;
     var mins=(+m[1])*60+(+m[2]); if (/ไทย/.test(tm)) mins+=120;
-    if (mins>=t.mins-30){ lis[k].classList.add('now'); return true; }
+    if (mins>=t.mins-30){ lis[k].classList.add('now'); for (var j=0;j<k;j++) lis[j].classList.add('past'); return true; }
   }
+  for (var z=0;z<lis.length;z++) lis[z].classList.add('past');
   return false;
 }
 function keyOf(el){ return el.tagName+'.'+(el.classList[0]||''); }
@@ -1898,6 +1901,7 @@ function paginate(p, G){
   start(true);
   units.forEach(function(u){
     var node=(u.g?u.item:u.el).cloneNode(true);
+    if (u.g && u.k==='OL.tl' && node.classList.contains('now') && count>0){ newSheet(); }
     if (u.g){
       if (!grp || grp.g!==u.g) openShell(u);
       grp.body.appendChild(node);
@@ -2057,10 +2061,11 @@ function maybeRebuild(){
 window.addEventListener('resize', function(){ clearTimeout(rz); rz=setTimeout(maybeRebuild, 300); });
 /* coming back to the tab after 15+ min: re-mark 'now'; if reading today's page, move to the current stop */
 document.addEventListener('visibilitychange', function(){
-  if (document.hidden || !built || Date.now()-lastBuild < 15*60000) return;
+  if (document.hidden || !built || Date.now()-lastBuild < 10*60000) return;
   var ae=document.activeElement; if (ae && /^(INPUT|SELECT|TEXTAREA)$/.test(ae.tagName)) return;
-  var L=LEAVES[leaf], ti=todayPageIdx();
-  if (L && L.pi===ti) buildBook({pi:ti, where:'now'}); else if (L) buildBook({pi:L.pi, where:{ratio: L.n>1 ? L.s/(L.n-1) : 0}});
+  var L=LEAVES[leaf], ti=todayPageIdx(), d=tz('Asia/Tokyo').ymd, trip=d>=TRIP_START && d<=TRIP_END;
+  if (trip || (L && L.pi===ti)){ var from=leaf, fromPi=L&&L.pi; buildBook({pi:ti, where:'now'}); if (L && fromPi!==ti){ BACK=[from]; renderBack(); } }
+  else if (L) buildBook({pi:L.pi, where:{ratio: L.n>1 ? L.s/(L.n-1) : 0}});
 });
 
 /* ---------- search ---------- */
@@ -2523,8 +2528,8 @@ window.addEventListener('hashchange', function(){ var id=location.hash.slice(1);
 /* ---------- boot ---------- */
 $('cvToday').textContent = coverText();
 var h0 = location.hash.slice(1);
-var bootTarget = BYID[h0] ? {pi:BYID[h0].i, where:0} : {pi:todayPageIdx(), where:'now'};
 var tday=tz('Asia/Tokyo').ymd, onTrip = tday>=TRIP_START && tday<=TRIP_END;
+var bootTarget = (BYID[h0] && !onTrip) ? {pi:BYID[h0].i, where:0} : {pi:todayPageIdx(), where:'now'};
 if (BYID[h0] || onTrip) { $('cover').hidden=true; }
 whenFonts(function(){
   buildBook(bootTarget);

@@ -607,6 +607,8 @@ var P = {
   hp:{n:'Warner Bros. Studio Tour Tokyo',q:'Warner Bros. Studio Tour Tokyo',id:'ChIJZzjXkvLtGGARm2YFfi26zoU'},
   tds:{n:'Tokyo DisneySea',q:'Tokyo DisneySea',id:'ChIJszdHEQN9GGARJS23SnAdR0E'},
   iriya:{n:'สถานี Iriya',q:'Iriya Station Tokyo',id:''},
+  hatcho:{n:'สถานี Hatchobori',q:'Hatchobori Station Tokyo',id:''},
+  maihama:{n:'สถานี JR Maihama',q:'Maihama Station',id:''},
   asa:{n:'สถานี Asakusa (Toei Asakusa Line)',q:'Asakusa Station (Toei Asakusa Line)',id:'ChIJL34SkMaOGGAR8M8COhoCH_Q'},
   keu:{n:'Keisei Ueno',q:'Keisei Ueno Station',id:'ChIJ0c5jEJ6OGGARBwiwjODYrb0'},
   donki:{n:'Don Quijote Asakusa',q:'Don Quijote Asakusa',id:'ChIJoTFLi7-OGGARzurWx-XRFYg'},
@@ -674,6 +676,11 @@ function money(rows, prepaid){
   return '<h3>ต้องจ่ายวันนี้ <small class="hs">(ต่อคน ยกเว้นที่ระบุ)</small></h3>'+tbl(['รายการ','เงิน','สถานะ'], rows)+(prepaid?'<p class="pp"><svg class="ic"><use href="#i-check"/></svg>จ่ายล่วงหน้าแล้ว: '+prepaid+'</p>':'');
 }
 function infog(items){ return '<div class="infog">'+items.map(function(i){ return '<div><span>'+i[0]+'</span><div>'+i[1]+'</div></div>'; }).join('')+'</div>'; }
+/* DisneySea links (used by d1 + d5) */
+var DS_SRC = 'https://www.tokyodisneyresort.jp/en/tds/monthly/stop/';
+var DS_CLIP = 'https://www.tiktok.com/@toystoryeiei/video/7629890150985665800';
+var DS_DPA = 'https://www.tokyodisneyresort.jp/en/tds/guide/disneypremieraccess.html';
+function xlink(url,label){ return '<a class="mp" href="'+url+'" target="_blank" rel="noopener"><svg class="ic"><use href="#i-info"/></svg><span>'+label+'</span></a>'; }
 
 var BOOK = [];
 BOOK.push({id:'trip', title:'ทริปของเรา', icon:'i-map', pages:[
@@ -686,7 +693,7 @@ ${tbl(['วัน','เมือง / ที่พัก','ไฮไลต์'],
  ['<b>4</b> ศ. 27 พ.ย.','อาซากุซะ · Vessel Inn','เติมน้ำมัน คืนรถ · Fuji Excursion กลับโตเกียว · อาซากุซะยามค่ำ'],
  ['<b>5</b> ส. 28 พ.ย.','อาซากุซะ · Vessel Inn','Harry Potter Studio รอบครึ่งวันเช้า · ช้อปปิ้ง · Skytree'],
  ['<b>6</b> อา. 29 พ.ย.','อาซากุซะ · Vessel Inn','ใส่กิโมโนเที่ยวเซ็นโซจิ · ไฟประดับมารุโนะอุจิ'],
- ['<b>7</b> จ. 30 พ.ย.','อาซากุซะ · Vessel Inn','Tokyo DisneySea ทั้งวัน 9:00–21:00'],
+ ['<b>7</b> จ. 30 พ.ย.','อาซากุซะ · Vessel Inn','Tokyo DisneySea ออกตี 5 เก็บ 16 เครื่องตามคลิป (สวนเปิด 9:00–21:00)'],
  ['<b>8</b> อ. 1 ธ.ค.','—','ช้อปปิ้งช่วงเช้า → นาริตะ T1 → SL395 แวะไทเป'],
  ['<b>9</b> พ. 2 ธ.ค.','บ้าน','ถึงดอนเมือง 00:15 → กลับบ้าน']
 ])}
@@ -824,7 +831,8 @@ ${TL([
  ['14:00','ถ่ายรูปริมแม่น้ำสุมิดะ / สะพานอาซึมะ','มุมสกายทรี + ตึก Asahi',gm('azuma')],
  ['ตามร้าน','คืนชุดกิโมโน',''],
  ['17:30','ไฟประดับ Marunouchi Illumination (ฟรี)','ไฟสีแชมเปญโกลด์ตลอดถนน Marunouchi Naka-dori ยาว ~1.2 กม. จัด 12 พ.ย. 2026 – 14 ก.พ. 2027 เดินต่อไปถนน Gyoko-dori หน้าสถานีโตเกียว (เปิดไฟ 27 พ.ย. – 25 ธ.ค.)',rt('ves','maru','t')],
- ['20:00','อาหารเย็นแถวสถานีโตเกียว แล้วกลับโรงแรม','']
+ ['20:00','อาหารเย็นแถวสถานีโตเกียว แล้วกลับโรงแรม',''],
+ ['21:00','เตรียมตัวไปดิสนีย์ตี 5 พรุ่งนี้','แวะคอนบินิซื้ออาหารเช้า ขนม ไคโระ · เพิ่มตั๋วทั้ง 2 คนในแอปและสร้างกลุ่ม · ชาร์จแบต · ตั้งปลุก 04:15 · นอนก่อน 22:00 รายละเอียดใน <a href="#day7">DAY 7</a>',gm('konbini')]
 ])}
 ${money([['รถไฟไป-กลับมารุโนะอุจิ',yb(500),tag('est')],['อาหารทั้งวัน','~฿1,250',tag('est')]], 'ค่าเช่ากิโมโน')}
 ${infog([['ห้องน้ำ','ในวัดเซ็นโซจิ, ห้าง Matsuya, สถานี'],['จุดถ่ายรูป','ประตูโฮโซมง เจดีย์ 5 ชั้น ในชุดกิโมโน'],['จุดโรแมนติก','อุโมงค์ไฟ Marunouchi Naka-dori'],['มารยาท','ห้ามกินขณะเดินบนถนนนากามิเสะ ยืนกินหน้าร้าน']])}
@@ -832,19 +840,37 @@ ${h('แผนสำรอง')}
 ${ul(['ฝนตก: ร้านกิโมโนบางร้านเลื่อนรอบหรือมีร่มให้ ติดต่อผ่าน Klook','เหนื่อย: ข้ามไฟประดับ ไปดูวิวสกายทรีจากริมแม่น้ำใกล้โรงแรมแทน'])}
 `},
 {id:'day7', title:'DAY 7 · 30 พ.ย. DisneySea', date:'2026-11-30', html:`
-${DAY({n:7, short:'30 NOV', date:'วันจันทร์ที่ 30 พฤศจิกายน 2026', lede:'Tokyo DisneySea ทั้งวัน 9:00–21:00 ออกเช้า ขากลับดึก ริมทะเลลมแรงและหนาวตอนค่ำ', wx:[{k:'suncl',place:'โตเกียว',hi:17,lo:7,pop:20}], wxurl:WX_TYO, first:'สถานี Iriya (สาย Hibiya) เดินจากโรงแรม'})}
+${DAY({n:7, short:'30 NOV', date:'วันจันทร์ที่ 30 พฤศจิกายน 2026', lede:'ไปตามคลิป "ตี 5 เก็บ 16 เครื่อง" ขึ้นรถไฟเที่ยวแรก ต่อแถวหน้าประตูตั้งแต่ 6 โมงเช้า สวนเปิด 9:00–21:00 (มักเปิดก่อนเวลา) เช้ามืดหนาวมาก ค่ำลมทะเลแรง', wx:[{k:'suncl',place:'โตเกียว',hi:17,lo:7,pop:20}], wxurl:WX_TYO, first:'สถานี Iriya (สาย Hibiya) เที่ยวแรก 05:07'})}
+${note('warn','ทำคืนก่อน (29 พ.ย.) ไม่งั้นพลาดตั้งแต่ตี 5','ซื้ออาหารเช้า ขนม และไคโระจากคอนบินิ · เพิ่มตั๋วทั้ง 2 คนในแอปและสร้างกลุ่ม · ชาร์จมือถือและพาวเวอร์แบงก์ · เปิด Google Maps ตั้งออกเดินทาง 04:50 วันจันทร์ ดูเวลารถไฟจริง · ตั้งปลุก 04:15 · นอนก่อน 22:00')}
 ${TL([
- ['07:00','อาหารเช้าที่โรงแรม',''],
- ['07:15','เดินไปสถานี Iriya','',rt('ves','iriya','w')],
- ['07:30','Iriya → Hatchobori (สาย Hibiya) → JR Keiyo → Maihama','ที่ Hatchobori เดินตามป้ายสีแดง JR Keiyo Line ไปเปลี่ยนสาย เวลาตามแผน: Iriya 07:30 → Hatchobori 07:47 → Maihama 08:07 (ตารางวันธรรมดา) ราว ¥750 ต่อคน',rt('ves','tds','t')],
- ['08:15','Maihama → Disney Resort Line ไปสถานี Tokyo DisneySea Station','รถโมโนเรลแยกค่าโดยสาร แตะ Suica ได้'],
- ['09:00–21:00','Tokyo DisneySea','ดาวน์โหลดแอป Tokyo Disney Resort ก่อน ใช้ดูเวลารอ ซื้อ Premier Access และสั่งอาหาร ใส่เสื้อหนาตอนค่ำ ลมทะเลแรง แผนที่ ลำดับโซน และเครื่องเล่นที่ควรเล่นอยู่ในบท <a href="#ds-map">DisneySea 30 พ.ย.</a> วันนี้ Indiana Jones เพิ่งกลับมาเปิดวันแรก',gm('tds')],
- ['21:00','กลับโรงแรม','ขบวนสุดท้ายยังมีหลังสวนปิด แต่คนแน่นมาก ถ้าออกช่วง 20:30 จะสบายกว่า',rt('tds','ves','t')]
+ ['04:15','ตื่น แต่งตัวอุ่นๆ หลายชั้น','ออกก่อนอาหารเช้าโรงแรมเปิด เอาอาหารเช้าที่ซื้อไว้ใส่กระเป๋า เช็กแอปล็อกอินอยู่ ตั๋วครบ 2 คน'],
+ ['04:50','เดินไปสถานี Iriya (~15 นาที)','ข้างนอกยังมืดและหนาว ใส่ถุงมือ',rt('ves','iriya','w')],
+ ['05:07','Iriya → Hatchobori (สาย Hibiya เที่ยวแรก)','ถึง Hatchobori ~05:20 ตามคลิป "ขึ้นรถไฟเที่ยวแรก 5am" รถเที่ยวถัดไป 05:19 · 05:27 '+tag('ok','ตารางเวลา Iriya')],
+ ['05:25','เปลี่ยนไป JR Keiyo Line → Maihama','ที่ Hatchobori เดินตามป้ายสีแดง JR Keiyo Line ทางเชื่อมยาว ถึง Maihama ราว 05:45 '+tag('est')+' ค่ารถรวม ~¥750 ต่อคน แตะ Suica',rt('hatcho','maihama','t')],
+ ['05:45','Maihama → หน้าประตู DisneySea','เดินตามทางเดินริมราง Disney Resort Line ~20 นาที '+tag('est')+' หรือรอ Disney Resort Line เที่ยวแรก 06:03 จาก Resort Gateway Station (¥300)',rt('maihama','tds','w')],
+ ['06:05','ต่อแถวรอเปิดสวน','ตามคลิป "ถึงดิสนีย์ซี 6am ต่อแถวรอเปิด" ปูแผ่นรองนั่ง กินอาหารเช้าที่ซื้อมา ผลัดกันเข้าห้องน้ำ แปะไคโระ เปิดแอปดูหน้าตั๋วว่าวันนี้จำกัดการเข้า Fantasy Springs ไหม'],
+ ['08:30','สแกนเข้าสวน แล้วซื้อ DPA Frozen ทันที','สวนมักเปิดก่อน 9:00 '+tag('est')+' สแกนแล้วกด DPA Anna and Elsa\'s Frozen Journey ให้ทั้ง 2 คน ได้รอบไหนเอารอบนั้น ('+yen(2500)+'/คน) <a href="#ds-tips">วิธีซื้อ</a>'],
+ ['08:40','#1 Journey to the Center of the Earth','กด DPA แล้วรีบไปภูเขาไฟ Mysterious Island คลิปบอกช่วงนี้คนยังน้อย ต่อแถวไม่นาน'],
+ ['09:30','ครบ 1 ชม. ซื้อ DPA ใบที่ 2: Toy Story Mania!','แอปจะบอกเวลาที่ซื้อได้ กดทันที '+yen(2000)+'/คน คลิปบอกคนเยอะมาก ซื้อ DPA เถอะ'],
+ ['09:45','Fantasy Springs: #2 Peter Pan','ต่อแถวปกติ ป้ายบอก 60 นาที คลิปบอกต่อจริงไม่นานขนาดนั้น'],
+ ['10:30','ซื้อ DPA ใบที่ 3: Tower of Terror','ครบ 1 ชม. จากใบที่ 2 กดในแถว Peter Pan ได้เลย '+yen(1500)+'/คน คลิปบอกตัวนี้ต้องซื้อ DPA'],
+ ['11:00','#3 Rapunzel\'s Lantern Festival แล้วแวะร้านค้า','เรือสั้นมาก ฉากโคมลอยสวย ร้าน Fantasy Springs Gifts บางส่วนต้องกด Standby Pass (ฟรี) ในแอปก่อน'],
+ ['11:45','#4 Anna and Elsa\'s Frozen Journey (ตามรอบ DPA)','ถ้ารอบ DPA ไม่ตรงช่วงนี้ สลับลำดับ #2–#4 ได้ ทั้ง 3 ตัวอยู่ในโซนเดียวกัน'],
+ ['12:30','#5 Jasmine\'s Flying Carpets → #6 Raging Spirits','ออกจาก Fantasy Springs ไป Arabian Coast แล้ว Lost River Delta รถไฟเหาะตีลังกา 360° ถ้าแอปให้กด Standby Pass ตัวนี้ กดไว้ (คลิปจำได้ว่าใช้) · Indiana Jones เปิดวันแรกอยู่โซนนี้ ถ้าอยากเล่นซื้อ DPA '+yen(1500)],
+ ['13:30','#7 20,000 Leagues Under the Sea แล้วกินกลางวัน','กลับมา Mysterious Island เรือดำน้ำในร่ม จากนั้นพักเติมแรง คลิปกินขาไก่งวง ข้าว และขนม สั่ง Mobile Order ในแอปล่วงหน้า'],
+ ['15:00','#8 Toy Story Mania! → #9 Tower of Terror (ตามรอบ DPA ทั้งคู่)','American Waterfront เกมยิงแข่งแต้มกัน 2 คน แล้วลิฟต์ดิ่ง ถ้ารอบ DPA ห่างกัน เดินถ่ายรูปต้นคริสต์มาสแถวนี้รอ'],
+ ['16:45','#10 DisneySea Electric Railway → Port Discovery','รถไฟลอยฟ้าพักขา พระอาทิตย์ตกราว 16:30 ทางเลือก: เล่น #16 Aquatopia ต่อเลยตอนลง จะได้ไม่ต้องย้อนมา'],
+ ['17:15','Mermaid Lagoon: #11–#14','Flounder\'s Coaster (ที่นั่งเล็ก เบียด) · Scuttle\'s Scooters · Jumpin\' Jellyfish · Blowfish Balloon Race คลิปบอกช่วงนี้เหนื่อยและหนาวมาก เลยหลบเข้าในร่ม โซนเด็ก ตัดได้ถ้าเหนื่อย'],
+ ['18:15','#15 Sinbad\'s Storybook Voyage แล้วกินมื้อเย็น','Arabian Coast นั่งพักขา คล้าย It\'s a Small World นั่งเรือดูหุ่น คิวสั้น'],
+ ['19:15','#16 Aquatopia','Port Discovery เรือหมุนบังคับทางไม่ได้ อาจโดนน้ำกระเซ็น เก็บมือถือ ใส่เสื้อกันฝนบาง ครบ 16 เครื่องตามคลิป'],
+ ['19:45','ริมอ่าว: Believe! Sea of Dreams + พลุ Starbright Christmas','เพิ่มจากคลิป วันที่คลิปไปพลุงดเพราะลมแรง ของเรามีพลุคริสต์มาส แต่ก็งดได้ถ้าลมแรง รอบจริงดูในแอป '+tag('chk')],
+ ['20:30','ออกจากสวน กลับโรงแรม','ออกก่อนสวนปิด 21:00 รถไฟไม่แน่นมาก',rt('tds','ves','t')]
 ])}
-${money([['รถไฟไป-กลับ',yb(1500),tag('est','¥750/เที่ยว')],['อาหารในดิสนีย์ (กลางวัน+เย็น+ขนม)',yb(6000),tag('est')]], 'ตั๋ว DisneySea')}
-${infog([['ห้องน้ำ','มีทั่วสวน ดูในแผนที่แอป'],['จุดถ่ายรูป','Mediterranean Harbor กับภูเขาไฟ Mount Prometheus'],['จุดโรแมนติก','ท่าเรือตอนกลางคืน ไฟทั้งอ่าวสะท้อนน้ำ'],['ข้อควรระวัง','อาหารและน้ำแพง พกขวดน้ำไปเติม']])}
+${money([['รถไฟไป-กลับ',yb(1500),tag('est','¥750/เที่ยว')],['DPA Frozen + Toy Story Mania! + Tower of Terror (2 คน)',yb(12000),tag('ok','ราคาทางการ')],['อาหารในดิสนีย์ (กลางวัน+เย็น+ขนม)',yb(6000),tag('est')],['อาหารเช้า ขนม ไคโระ จากคอนบินิ',yb(1500),tag('est')]], 'ตั๋ว DisneySea')}
+${infog([['ห้องน้ำ','มีทั่วสวน ดูในแผนที่แอป'],['จุดถ่ายรูป','ลูกโลกหน้าทางเข้าตอนเช้า · ภูเขาไฟ Mount Prometheus'],['จุดโรแมนติก','ท่าเรือตอนกลางคืน ไฟทั้งอ่าวสะท้อนน้ำ'],['ข้อควรระวัง','DPA ซื้อแล้วคืนเงินไม่ได้ เลือกรอบให้ดี']])}
+${links(xlink(DS_CLIP,'คลิปต้นฉบับ (TikTok)'))}
 ${h('แผนสำรอง')}
-${ul(['สาย Hibiya ขัดข้อง: ใช้ Google Maps หาเส้นทางผ่าน Tokyo Station (JR Keiyo Line ออกจาก Tokyo Station ได้ด้วย)','เดินไม่ไหว: แท็กซี่จาก Maihama กลับอาซากุซะ ราคาสูง ใช้เป็นทางสุดท้าย'])}
+${ul(['ตื่นสาย: ไปให้เร็วที่สุด ยังเข้าสวนได้ปกติแต่จะอยู่ท้ายแถว และ DPA Frozen รอบดีๆ อาจหมด','สาย Hibiya ขัดข้อง: ใช้ Google Maps หาเส้นทางผ่าน Tokyo Station (JR Keiyo Line ออกจาก Tokyo Station ได้ด้วย)','DPA Frozen หมด: ดูเวลารอในแอป แล้วลองต่อแถวปกติช่วงค่ำ','เดินไม่ไหว: แท็กซี่จาก Maihama กลับอาซากุซะ ราคาสูง ใช้เป็นทางสุดท้าย'])}
 `},
 {id:'day8', title:'DAY 8 · 1 ธ.ค. บินกลับ', date:'2026-12-01', html:`
 ${DAY({n:8, short:'1 DEC', date:'วันอังคารที่ 1 ธันวาคม 2026', lede:'เช้าช้อปปิ้งปิดท้าย ฝากกระเป๋าที่โรงแรม บ่ายไปนาริตะอาคาร 1 ทำคืนภาษี เช็กอิน แล้วบิน SL395 แวะไทเปกลับดอนเมือง', wx:[{k:'suncl',place:'โตเกียว',hi:19,lo:8,pop:20}], wxurl:WX_TYO, first:'ร้านค้าแถวอาซากุซะ (เช้า)'})}
@@ -879,9 +905,8 @@ ${ul(['ส่งข้อความบอกที่บ้านว่าถ�
 `}
 ]});
 
-/* ===== DisneySea chapter (30 Nov 2026) ===== */
-var DS_MAP = '<figure class="dg ds"><svg viewBox="0 0 360 340" role="img" aria-label="แผนผังย่อ Tokyo DisneySea แบ่ง 8 โซน พร้อมลำดับการเดิน">'
- +'<defs><marker id="dsArr" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" class="dsah"/></marker></defs>'
+/* ===== DisneySea chapter (30 Nov 2026) — route follows the TikTok clip "ไปตั้งแต่ตี 5 เก็บ 16 เครื่อง" ===== */
+var DS_MAP = '<figure class="dg ds"><svg viewBox="0 0 360 340" role="img" aria-label="แผนผังย่อ Tokyo DisneySea แบ่ง 8 โซน พร้อมลำดับโซนตามคลิป">'
  /* zones */
  +'<rect class="dsz fs" x="248" y="6" width="104" height="70" rx="16"/>'
  +'<rect class="dsz lrd" x="126" y="18" width="112" height="72" rx="16"/>'
@@ -895,9 +920,6 @@ var DS_MAP = '<figure class="dg ds"><svg viewBox="0 0 360 340" role="img" aria-l
  +'<ellipse class="dsw" cx="184" cy="266" rx="46" ry="15"/>'
  /* passage to Fantasy Springs (between Lost River Delta and Arabian Coast) */
  +'<path class="dsp" d="M244 92 L262 76"/>'
- /* main walking loop: entrance -> right side -> Fantasy Springs -> top -> left -> harbor */
- +'<path class="dsr" marker-end="url(#dsArr)" d="M200 300 C 252 292, 262 258, 244 222 C 234 200, 232 172, 240 140 C 246 116, 252 98, 266 80"/>'
- +'<path class="dsr" marker-end="url(#dsArr)" d="M252 70 C 232 92, 208 98, 182 98 C 150 98, 132 100, 114 108 C 96 118, 92 136, 96 156 C 100 186, 100 214, 112 234 C 120 248, 132 256, 140 258"/>'
  /* labels */
  +'<text class="dsl" x="300" y="38" text-anchor="middle">Fantasy</text><text class="dsl" x="300" y="52" text-anchor="middle">Springs</text>'
  +'<text class="dsl" x="182" y="50" text-anchor="middle">Lost River</text><text class="dsl" x="182" y="64" text-anchor="middle">Delta</text>'
@@ -911,77 +933,93 @@ var DS_MAP = '<figure class="dg ds"><svg viewBox="0 0 360 340" role="img" aria-l
  /* entrance */
  +'<rect class="dse" x="146" y="298" width="76" height="18" rx="5"/><text class="dset" x="184" y="311" text-anchor="middle">ทางเข้า</text>'
  +'<text class="dss" x="184" y="332" text-anchor="middle">สถานี Tokyo DisneySea (Disney Resort Line)</text>'
- /* order badges */
- +'<g class="dsb"><circle cx="264" cy="22" r="10"/><text x="264" y="26" text-anchor="middle">1</text></g>'
- +'<g class="dsb"><circle cx="140" cy="32" r="10"/><text x="140" y="36" text-anchor="middle">2</text></g>'
- +'<g class="dsb"><circle cx="26" cy="74" r="10"/><text x="26" y="78" text-anchor="middle">3</text></g>'
- +'<g class="dsb"><circle cx="26" cy="162" r="10"/><text x="26" y="166" text-anchor="middle">4</text></g>'
- +'<g class="dsb"><circle cx="112" cy="250" r="10"/><text x="112" y="254" text-anchor="middle">5</text></g>'
- +'<g class="dsb"><circle cx="150" cy="122" r="10"/><text x="150" y="126" text-anchor="middle">6</text></g>'
+ /* zone order badges = first visit in the clip */
+ +'<g class="dsb"><circle cx="150" cy="122" r="10"/><text x="150" y="126" text-anchor="middle">1</text></g>'
+ +'<g class="dsb"><circle cx="264" cy="22" r="10"/><text x="264" y="26" text-anchor="middle">2</text></g>'
+ +'<g class="dsb"><circle cx="336" cy="110" r="10"/><text x="336" y="114" text-anchor="middle">3</text></g>'
+ +'<g class="dsb"><circle cx="140" cy="32" r="10"/><text x="140" y="36" text-anchor="middle">4</text></g>'
+ +'<g class="dsb"><circle cx="26" cy="162" r="10"/><text x="26" y="166" text-anchor="middle">5</text></g>'
+ +'<g class="dsb"><circle cx="26" cy="74" r="10"/><text x="26" y="78" text-anchor="middle">6</text></g>'
  +'<g class="dsb"><circle cx="336" cy="190" r="10"/><text x="336" y="194" text-anchor="middle">7</text></g>'
  +'<g class="dsb"><circle cx="256" cy="250" r="10"/><text x="256" y="254" text-anchor="middle">8</text></g>'
- +'</svg><figcaption>แผนผังย่อ ไม่ตรงสเกล ใช้ดูลำดับโซน เส้นประคือทางเดินช่วงเช้าถึงบ่าย เลขในวงกลมคือลำดับในแผน (เดินจริงใช้แผนที่ในแอป Tokyo Disney Resort)</figcaption></figure>';
+ +'</svg><figcaption>แผนผังย่อ ไม่ตรงสเกล เลขในวงกลมคือลำดับโซนที่ไปถึงครั้งแรกตามคลิป บางโซนกลับไปซ้ำ ดูเลขเครื่องเล่นในตารางด้านล่าง เดินจริงใช้แผนที่ในแอป Tokyo Disney Resort</figcaption></figure>';
 
-var DS_SRC = 'https://www.tokyodisneyresort.jp/en/tds/monthly/stop/';
-function xlink(url,label){ return '<a class="mp" href="'+url+'" target="_blank" rel="noopener"><svg class="ic"><use href="#i-info"/></svg><span>'+label+'</span></a>'; }
 
 BOOK.push({id:'tds', title:'DisneySea 30 พ.ย.', icon:'i-star', pages:[
-{id:'ds-map', title:'แผนที่ DisneySea และเส้นทางเดิน', html:`
-<p>สวนเป็นวงล้อมภูเขาไฟกลางสวน เข้าประตูแล้วเจออ่าว Mediterranean Harbor ทางซ้ายไป American Waterfront ทางขวาไป Mysterious Island (ภูเขาไฟ) เดินวนเป็นวงได้ทั้งสวน ทางเข้า Fantasy Springs อยู่ด้านหลังสวน ระหว่าง Lost River Delta กับ Arabian Coast</p>
+{id:'ds-map', title:'แผนที่ DisneySea และเส้นทางตามคลิป', html:`
+<p>สวนเป็นวงล้อมภูเขาไฟกลางสวน เข้าประตูแล้วเจออ่าว Mediterranean Harbor ทางซ้ายไป American Waterfront ทางขวาไป Mysterious Island (ภูเขาไฟ) ทางเข้า Fantasy Springs อยู่ด้านหลังสวน ระหว่าง Lost River Delta กับ Arabian Coast เส้นทางนี้ทำตามคลิป TikTok "ไปตั้งแต่ตี 5 เก็บ 16 เครื่อง"</p>
 ${DS_MAP}
-${tbl(['โซน','เล่น / ดูอะไร','ช่วงเวลา'],[
- ['<b>1</b> · Fantasy Springs','Frozen Journey · Rapunzel · Peter Pan','09:10–11:30'],
- ['<b>2</b> · Lost River Delta','Raging Spirits · Indiana Jones · กินกลางวัน','11:30–13:00'],
- ['<b>3</b> · Port Discovery','Nemo & Friends SeaRider · Aquatopia','13:00–13:45'],
- ['<b>4</b> · American Waterfront','Toy Story Mania! · Tower of Terror','13:45–15:30'],
- ['<b>5</b> · Mediterranean Harbor','โชว์ Disney Christmas Greeting บนเรือ','ตามรอบในแอป'],
- ['<b>6</b> · Mysterious Island','Journey to the Center of the Earth · 20,000 Leagues','16:00–17:30'],
- ['<b>7</b> · Mermaid Lagoon / Arabian Coast','พักในร่มให้อุ่น · Sindbad · มื้อเย็น','17:30–19:00'],
- ['<b>8</b> · Mediterranean Harbor','Soaring (PA) · Believe! Sea of Dreams · พลุคริสต์มาส','19:00–20:30']
+${tbl(['โซน','เครื่องเล่น (เลขลำดับตามคลิป)','ช่วงเวลา'],[
+ ['<b>1</b> · Mysterious Island','#1 Journey to the Center of the Earth · #7 20,000 Leagues','เปิดสวน · บ่าย'],
+ ['<b>2</b> · Fantasy Springs','#2 Peter Pan · #3 Rapunzel · #4 Frozen (DPA)','เช้า'],
+ ['<b>3</b> · Arabian Coast','#5 Jasmine\'s Flying Carpets · #15 Sinbad','เที่ยง · ค่ำ'],
+ ['<b>4</b> · Lost River Delta','#6 Raging Spirits','เที่ยง'],
+ ['<b>5</b> · American Waterfront','#8 Toy Story Mania! (DPA) · #9 Tower of Terror · ขึ้น #10 Electric Railway','บ่าย'],
+ ['<b>6</b> · Port Discovery','ลง #10 Electric Railway · #16 Aquatopia','เย็น · ค่ำ'],
+ ['<b>7</b> · Mermaid Lagoon','#11 Flounder\'s Coaster · #12 Scuttle\'s Scooters · #13 Jumpin\' Jellyfish · #14 Blowfish Balloon Race','เย็น (ในร่ม อุ่น)'],
+ ['<b>8</b> · Mediterranean Harbor','Believe! Sea of Dreams · พลุ Starbright Christmas (เพิ่มจากคลิป)','ค่ำ ตามรอบในแอป']
 ])}
-${links(gm('tds','DisneySea ใน Google Maps'), xlink(DS_SRC,'เครื่องเล่นที่ปิดวันนั้น (ทางการ)'))}
+${links(gm('tds','DisneySea ใน Google Maps'), xlink(DS_CLIP,'คลิปต้นฉบับ (TikTok)'), xlink(DS_SRC,'เครื่องเล่นที่ปิดวันนั้น (ทางการ)'))}
 `},
-{id:'ds-plan', title:'แผนเดินทั้งวัน 30 พ.ย.', html:`
-${note('warn','วันนี้ Indiana Jones เพิ่งกลับมาเปิด','ปิดปรับปรุงตั้งแต่ 18 ส.ค. 2025 ถึง 29 พ.ย. 2026 วันที่ 30 พ.ย. เป็นวันแรกที่เปิด คิวน่าจะยาวมาก และเดือนพฤศจิกายนเป็นเดือนที่คนเยอะที่สุดของปีตามสถิติ '+tag('ok','ประกาศทางการ'))}
-${TL([
- ['08:30','ถึงหน้าประตู ต่อแถวรอ','เปิดแอป Tokyo Disney Resort ล็อกอินไว้ เปิด QR ตั๋วไว้ให้พร้อมทั้ง 2 คน'],
- ['09:00','เข้าสวน แล้วซื้อ Premier Access ใบแรกทันที','ซื้อ Soaring: Fantastic Flight ในแอป ('+yen(2000)+'/คน) เลือกรอบค่ำถ้ามี ซื้อได้หลังสแกนเข้าสวนแล้วเท่านั้น'],
- ['09:05','เดินตรงไป Fantasy Springs (~15 นาที)','ผ่านอ่าวไปทางขวา เลียบภูเขาไฟ ผ่าน Arabian Coast ถึงทางเข้า Fantasy Springs แล้วไปเข้าคิว Anna and Elsa\'s Frozen Journey ก่อน คิวจะยาวขึ้นเรื่อยๆ ทั้งวัน'],
- ['10:30','Rapunzel\'s Lantern Festival','เรือสั้นๆ ฉากโคมลอยสวยมาก ต่อด้วย Peter Pan\'s Never Land Adventure ถ้าแอปบอกรอไม่เกิน 60 นาที'],
- ['11:30','Lost River Delta: Raging Spirits','รถไฟเหาะสั้นมีตีลังกา ส่วน Indiana Jones ถ้าอยากเล่นวันนี้ ซื้อ PA ('+yen(1500)+'/คน) ดีกว่ารอคิว'],
- ['12:00','กินกลางวัน','สั่งผ่าน Mobile Order ในแอปล่วงหน้า ไม่ต้องยืนต่อแถวสั่งอาหาร กินก่อน 12:00 หรือหลัง 13:30 คนน้อยกว่า'],
- ['13:00','Port Discovery: Nemo & Friends SeaRider · Aquatopia','เล่น Aquatopia ตอนกลางวันที่ยังอุ่น เพราะอาจโดนละอองน้ำ'],
- ['13:45','นั่ง DisneySea Electric Railway ไป American Waterfront','รถไฟลอยฟ้าเชื่อม Port Discovery กับ American Waterfront ช่วยพักขา'],
- ['14:00','Toy Story Mania! · Tower of Terror','Toy Story Mania เป็นเกมยิงแข่งแต้มกัน 2 คน สนุกมาก ถ้าคิวเกิน 60 นาทีให้ซื้อ PA ใบที่สอง ถ่ายรูปบรรยากาศคริสต์มาสแถวนี้'],
- ['15:30','อ่าว: Disney Christmas Greeting','มิกกี้ ดัฟฟี่ และซานต้าบนเรือ ยาว ~15 นาที วันละ 2 รอบ ดูเวลาในแอป แล้วสลับลำดับกับช่วง 14:00 ได้'],
- ['16:30','Mysterious Island: Journey to the Center of the Earth','พระอาทิตย์ตกราว 16:30 ภูเขาไฟเริ่มเปิดไฟ ต่อด้วย 20,000 Leagues Under the Sea คิวสั้น'],
- ['17:30','พักในร่ม: Mermaid Lagoon / Sindbad','โซน Mermaid Lagoon มีส่วนในร่มอุ่น Sindbad\'s Storybook Voyage เรือในร่มคิวสั้น เพลงติดหู แล้วกินมื้อเย็น'],
- ['19:00','Soaring: Fantastic Flight (ตามรอบ PA)','บินชมสถานที่ทั่วโลก นุ่มนวล ไฮไลต์ของสวน'],
- ['19:30','จับที่ริมอ่าว: Believe! Sea of Dreams + พลุ Starbright Christmas','โชว์กลางคืนบนอ่าว และพลุคริสต์มาส ~5 นาที งดถ้าลมแรง เวลาจริงดูในแอป ใส่เสื้อหนาให้พร้อม'],
- ['20:30','ออกจากสวน','ออกก่อนสวนปิด 21:00 รถไฟ Disney Resort Line จะไม่แน่นมาก',rt('tds','ves','t')]
+{id:'ds-plan', title:'16 เครื่องตามคลิป และสิ่งที่ปรับ', html:`
+${note('info','ที่มาของแผน','คลิป TikTok @toystoryeiei (เม.ย. 2026) ออกจากโรงแรมตี 5 ขึ้นรถไฟเที่ยวแรก ต่อแถวหน้าสวนตั้งแต่ 6 โมงเช้า เข้าได้ก็กด DPA Frozen ทันที แล้วเก็บได้ 16 เครื่อง ซื้อ DPA รวม 3 ใบ (Frozen · Toy Story Mania! · Tower of Terror) เวลาในตารางวันที่ 7 ประมาณจากลำดับในคลิป '+tag('est','ประมาณการ'))}
+${note('warn','คลิปย้ำ: DisneySea คนเยอะทุกวัน','ไม่มีวันไหนคนน้อย ตัวดังต่อแถวราวชั่วโมงครึ่ง DPA และ Standby Pass หมดได้ทุกตัว ไปถึงเร็วได้เปรียบกว่าครึ่ง')}
+${h('ลำดับเครื่องเล่นตามคลิป')}
+${steps([
+ '<b>Journey to the Center of the Earth</b><br>ระหว่างกด DPA ให้รีบไปตัวนี้ก่อน คนยังน้อย ต่อแถวไม่นาน คล้ายรถไฟเหาะ มีช่วงหวิว',
+ '<b>Peter Pan\'s Never Land Adventure</b><br>ป้ายบอกรอ 60 นาที แต่ต่อจริงไม่นานขนาดนั้น',
+ '<b>Rapunzel\'s Lantern Festival</b><br>ล่องเรือสั้นมาก สวยที่ฉากโคมลอย แล้วแวะร้านค้าพักหายใจ',
+ '<b>Anna and Elsa\'s Frozen Journey</b><br>DPA ใบแรก กดทันทีที่เข้าสวน ได้รอบไหนเอารอบนั้น',
+ '<b>Jasmine\'s Flying Carpets</b><br>พรมบินหมุนวน เบาๆ',
+ '<b>Raging Spirits</b><br>รถไฟเหาะตีลังกา 360° สนุกมาก คลิปบอกจำได้ว่าตัวนี้กด Standby Pass',
+ '<b>20,000 Leagues Under the Sea</b><br>เรือดำน้ำในร่ม ถึงตรงนี้เริ่มเหนื่อย พักกินไก่ กินข้าว กินขนม',
+ '<b>Toy Story Mania!</b><br>แนะนำซื้อ DPA คนเยอะตลอด ยิงเป้า 3 มิติ ฉากข้างในสวยมาก',
+ '<b>Tower of Terror</b><br>อีกตัวที่คลิปบอกต้องซื้อ DPA ลิฟต์ดิ่งในตำนาน',
+ '<b>DisneySea Electric Railway</b><br>นั่งพักขา รถไฟวินเทจเชื่อมไป Port Discovery',
+ '<b>Flounder\'s Flying Fish Coaster</b><br>ตัวแรกในโซน Mermaid รถไฟเหาะเด็ก ที่นั่งเล็กมาก นั่งเบียด',
+ '<b>Scuttle\'s Scooters</b><br>หมุนๆ น่ารัก สนุกดี',
+ '<b>Jumpin\' Jellyfish</b><br>ตอนนั้นเหนื่อยและหนาวมาก เลยหลบเข้าในร่ม นั่งขึ้นลงชมโซน',
+ '<b>Blowfish Balloon Race</b><br>ปิดโซนนี้ หมุนวน โซนเด็ก ไม่หวือหวา อย่าคาดหวังมาก',
+ '<b>Sinbad\'s Storybook Voyage</b><br>นั่งพักขา คล้าย It\'s a Small World นั่งเรือดูหุ่น',
+ '<b>Aquatopia</b><br>ตัวปิดท้าย เรือหมุนบังคับทิศทางไม่ได้ พาเข้าน้ำ แต่สนุก'
 ])}
+${h('คลิปเสียดาย 2 อย่าง วันเราได้ทั้งคู่')}
+${ul([
+ '<b>Indiana Jones</b>: วันที่คลิปไปปิดปรับปรุง วันที่ 30 พ.ย. เป็นวันแรกที่กลับมาเปิด เริ่มขาย DPA '+yen(1500)+' คิวน่าจะยาวมาก เพิ่มได้ถ้ามีแรงเหลือ '+tag('ok','หน้า DPA ทางการ'),
+ '<b>พลุ</b>: วันที่คลิปไปพลุงดเพราะลมแรง วันที่ 30 พ.ย. อยู่ในงานคริสต์มาส (11 พ.ย.–25 ธ.ค. 2026) มีพลุ Starbright Christmas วันละรอบ ~5 นาที แต่ก็งดได้ถ้าลมแรงเหมือนกัน '+tag('ok','ทางการ')
+])}
+${h('ต่างจากคลิปที่ต้องเตรียมเพิ่ม (คลิปถ่ายเดือนเมษายน)')}
+${ul([
+ '<b>Soaring: Fantastic Flight</b>: ไม่อยู่ในคลิป เป็นตัวคิวยาวที่สุดตัวหนึ่ง ถ้าอยากเล่นต้องซื้อ DPA '+yen(2500)+' เพิ่มเป็นใบที่ 4',
+ '<b>หนาวกว่ามาก</b>: เช้ามืดปลายพฤศจิกายนราว 5–7°C ต่อแถว 2–3 ชั่วโมงต้องมีแผ่นรองนั่ง ถุงมือ และแผ่นร้อน (ไคโระ) '+tag('est'),
+ '<b>มืดเร็ว</b>: พระอาทิตย์ตกราว 16:30 ช่วงที่คลิปเล่นตอนค่ำ (#8 เป็นต้นไป) ของเราจะมืดตั้งแต่ราว 17:00',
+ '<b>ราคา DPA ปัจจุบัน</b>: Frozen '+yen(2500)+' · Toy Story Mania! '+yen(2000)+' · Tower of Terror '+yen(1500)+' ต่อคน '+tag('ok','หน้า DPA ทางการ')
+])}
+${h('ทางเลือกที่ดีกว่า ถ้าอยากเดินน้อยลง')}
+${ul(['ลงรถไฟ #10 ที่ Port Discovery แล้วเล่น <b>#16 Aquatopia ต่อเลย</b> ก่อนเดินข้ามสวนไป Mermaid Lagoon ไม่ต้องย้อนกลับมาอีกรอบ','ถ้าเหนื่อย ตัด #11–14 (เครื่องเล่นเด็ก) เหลือเดินชม Mermaid Lagoon ในร่มพอ'])}
 `},
 {id:'ds-rides', title:'เครื่องเล่นที่ควรเล่น', html:`
-<p>เรียงจากน่าเล่นที่สุด เวลารอคือค่าเฉลี่ยในอดีต วันจริงดูในแอป ${tag('est','ค่าเฉลี่ย')} ราคา PA คือต่อคนต่อรอบ ${tag('ok','ราคาตั้งแต่ 1 ก.ย. 2026')}</p>
+<p>เรียงจากน่าเล่นที่สุด เวลารอคือค่าเฉลี่ยในอดีต วันจริงดูในแอป ${tag('est','ค่าเฉลี่ย')} ราคา DPA ต่อคนต่อรอบ ${tag('ok','หน้า DPA ทางการ')} เลข # คือลำดับในคลิป</p>
 ${h('ตัวหลัก คิวยาว')}
-${tbl(['เครื่องเล่น','โซน','แนว','รอ / PA'],[
- ['Soaring: Fantastic Flight','Mediterranean Harbor','บินชมโลกบนจอโดม นุ่มนวล สวยสุด','~99 นาที · PA '+yen(2000)],
- ['Anna and Elsa\'s Frozen Journey','Fantasy Springs','นั่งเรือ ฉากและดนตรี Frozen','~107 นาที · PA '+yen(2000)],
- ['Journey to the Center of the Earth','Mysterious Island','ผจญภัยใต้ดิน ช่วงท้ายพุ่งเร็ว','~70 นาที · PA '+yen(1500)],
- ['Toy Story Mania!','American Waterfront','เกมยิงแข่งแต้ม 3 มิติ เล่นคู่สนุก','~74 นาที · PA '+yen(2000)],
- ['Tower of Terror','American Waterfront','ลิฟต์ดิ่งในที่มืด หวาดเสียวสูง','~62 นาที · PA '+yen(1500)],
- ['Rapunzel\'s Lantern Festival','Fantasy Springs','เรือสั้น โคมลอยสวย โรแมนติก','~59 นาที · PA '+yen(2000)],
- ['Peter Pan\'s Never Land Adventure','Fantasy Springs','ยานบิน จอ 3 มิติ โยกเยก','~55 นาที · PA '+yen(2000)],
- ['Indiana Jones Adventure','Lost River Delta','รถจี๊ปโยกแรง มืด ตื่นเต้น','~46 นาที (วันนี้น่าจะยาวกว่า) · PA '+yen(1500)],
- ['Raging Spirits','Lost River Delta','รถไฟเหาะสั้น ตีลังกา 360°','~46 นาที · PA '+yen(1500)]
+${tbl(['เครื่องเล่น','โซน','แนว','รอ / DPA'],[
+ ['#4 Anna and Elsa\'s Frozen Journey','Fantasy Springs','นั่งเรือ ฉากและดนตรี Frozen','~107 นาที · DPA '+yen(2500)],
+ ['#1 Journey to the Center of the Earth','Mysterious Island','ผจญภัยใต้ดิน ช่วงท้ายพุ่งเร็ว','~70 นาที · DPA '+yen(2000)],
+ ['#8 Toy Story Mania!','American Waterfront','เกมยิงแข่งแต้ม 3 มิติ เล่นคู่สนุก','~74 นาที · DPA '+yen(2000)],
+ ['#2 Peter Pan\'s Never Land Adventure','Fantasy Springs','ยานบิน จอ 3 มิติ โยกเยก','~55 นาที (คลิปรอ 60) · DPA '+yen(2000)],
+ ['#3 Rapunzel\'s Lantern Festival','Fantasy Springs','เรือสั้น โคมลอยสวย โรแมนติก','~59 นาที · DPA '+yen(2000)],
+ ['#9 Tower of Terror','American Waterfront','ลิฟต์ดิ่งในที่มืด หวาดเสียวสูง คลิปซื้อ DPA','~62 นาที · DPA '+yen(1500)],
+ ['#6 Raging Spirits','Lost River Delta','รถไฟเหาะสั้น ตีลังกา 360°','~46 นาที · DPA '+yen(1500)],
+ ['Soaring: Fantastic Flight (นอกคลิป)','Mediterranean Harbor','บินชมโลกบนจอโดม นุ่มนวล สวยสุด','~99 นาที · DPA '+yen(2500)],
+ ['Indiana Jones Adventure (นอกคลิป)','Lost River Delta','รถจี๊ปโยกแรง มืด ตื่นเต้น เปิดวันแรก','น่าจะยาวมาก · DPA '+yen(1500)]
 ])}
 ${h('คิวสั้น เล่นแทรกได้')}
 ${tbl(['เครื่องเล่น','โซน','แนว','รอเฉลี่ย'],[
- ['20,000 Leagues Under the Sea','Mysterious Island','เรือดำน้ำ เบาๆ ในร่ม','~19 นาที'],
- ['Sindbad\'s Storybook Voyage','Arabian Coast','เรือในร่ม เพลงติดหู','~7 นาที'],
- ['Nemo & Friends SeaRider','Port Discovery','โรงหนังจำลองการเคลื่อนที่','~24 นาที'],
- ['Aquatopia','Port Discovery','เรือหมุนในบ่อน้ำ เดาทางไม่ได้','ปกติสั้น'],
- ['DisneySea Electric Railway','Port Discovery ↔ American Waterfront','รถไฟลอยฟ้า ใช้แทนการเดิน','~12 นาที']
+ ['#7 20,000 Leagues Under the Sea','Mysterious Island','เรือดำน้ำ เบาๆ ในร่ม','~19 นาที'],
+ ['#15 Sinbad\'s Storybook Voyage','Arabian Coast','เรือในร่ม เพลงติดหู','~7 นาที'],
+ ['#10 DisneySea Electric Railway','American Waterfront → Port Discovery','รถไฟลอยฟ้า ใช้แทนการเดิน','~12 นาที'],
+ ['#16 Aquatopia','Port Discovery','เรือหมุนในบ่อน้ำ เดาทางไม่ได้','ปกติสั้น'],
+ ['#5 Jasmine\'s Flying Carpets','Arabian Coast','พรมบินหมุนวน','ปกติสั้น'],
+ ['#11–14 Mermaid Lagoon','Mermaid Lagoon','เครื่องเล่นเด็ก ส่วนใหญ่อยู่ในร่ม','ปกติสั้น']
 ])}
 `},
 {id:'ds-skip', title:'เครื่องเล่นที่ข้ามได้ และข้อควรระวัง', html:`
@@ -993,39 +1031,41 @@ ${tbl(['รายการ','สถานะ'],[
  ['โชว์ Sky Full of Colors','งด 10 พ.ย. 2026–11 ม.ค. 2027']
 ])}
 <p class="hs">ที่มา: หน้าปิดปรับปรุงของ Tokyo Disney Resort อาจปิดเพิ่มโดยไม่แจ้ง ${tag('ok','ทางการ')}</p>
-${h('ข้ามได้ ไม่คุ้มเวลา')}
+${h('ตัดได้ถ้าเวลาไม่พอ')}
 ${tbl(['เครื่องเล่น','เหตุผล'],[
- ['เครื่องเล่นใน Mermaid Lagoon: Flounder\'s Flying Fish Coaster, Scuttle\'s Scooters, Jumpin\' Jellyfish, Blowfish Balloon Race, The Whirlpool','ทำมาสำหรับเด็กเล็ก แวะแค่เดินชมและพักในร่ม'],
- ['Jasmine\'s Flying Carpets · Caravan Carousel','เครื่องเล่นเด็ก หมุนวนธรรมดา'],
- ['Fairy Tinker Bell\'s Busy Buggies','เครื่องเล่นเด็ก แต่คิวเฉลี่ย ~40 นาที'],
- ['Turtle Talk','โชว์คุยโต้ตอบเป็นภาษาญี่ปุ่นล้วน'],
- ['The Magic Lamp Theater','บทพูดญี่ปุ่นเยอะ ดูได้ถ้าคิวสั้นและอยากนั่งพัก'],
- ['Venetian Gondolas ตอนค่ำ','กลางแจ้ง ลมทะเลหนาว ถ้าอยากนั่งให้นั่งช่วงบ่ายที่ยังมีแดด'],
- ['Aquatopia ตอนค่ำ','อาจโดนละอองน้ำ ตัวเปียกแล้วหนาว เล่นตอนกลางวันแทน']
+ ['#11–14 ใน Mermaid Lagoon','คลิปเล่นครบแต่บอกเองว่าเป็นโซนเด็ก ชิลๆ ได้ประโยชน์ตรงที่อยู่ในร่ม อุ่น'],
+ ['#5 Jasmine\'s Flying Carpets','หมุนวนธรรมดา ข้ามได้ถ้าคิวเกิน 20 นาที'],
+ ['Fairy Tinker Bell\'s Busy Buggies (ไม่อยู่ในคลิป)','เครื่องเล่นเด็ก แต่คิวเฉลี่ย ~40 นาที'],
+ ['Turtle Talk · The Magic Lamp Theater','บทพูดญี่ปุ่นเยอะ'],
+ ['Venetian Gondolas ตอนค่ำ','กลางแจ้ง ลมทะเลหนาว']
 ])}
 ${h('ระวังถ้าเมารถ กลัวความสูง หรือปวดหลัง')}
-${ul(['<b>Tower of Terror</b>: ดิ่งลงหลายครั้งในที่มืด หวาดเสียวสุดในสวน','<b>Raging Spirits</b>: รถไฟเหาะมีตีลังกา 360° แต่สั้น','<b>Nemo & Friends SeaRider</b> และ <b>Peter Pan</b>: จอเคลื่อนไหว คนเมารถง่ายอาจเวียนหัว','<b>Indiana Jones</b>: รถโยกกระแทกแรง ไม่เหมาะคนปวดหลัง','<b>Soaring</b>: ที่นั่งยกสูงจากพื้น แต่นุ่มนวล คนกลัวความสูงหลายคนยังเล่นได้'])}
+${ul(['<b>#9 Tower of Terror</b>: ดิ่งลงหลายครั้งในที่มืด หวาดเสียวสุดในสวน','<b>#6 Raging Spirits</b>: รถไฟเหาะมีตีลังกา 360° แต่สั้น','<b>#2 Peter Pan</b>: จอเคลื่อนไหว คนเมารถง่ายอาจเวียนหัว','<b>#16 Aquatopia ตอนค่ำ</b>: เรือพาผ่านน้ำตก อาจโดนละอองน้ำ ตัวเปียกแล้วหนาว เก็บมือถือให้ดี','<b>#11 Flounder\'s Coaster</b>: ที่นั่งเล็ก ผู้ใหญ่ 2 คนนั่งเบียด','<b>Indiana Jones</b> (ถ้าเล่น): รถโยกกระแทกแรง ไม่เหมาะคนปวดหลัง'])}
 `},
-{id:'ds-tips', title:'Premier Access โชว์ และเคล็ดลับ', html:`
-${note('info','ไม่มี Priority Pass ฟรีแล้ว','ตั้งแต่ 1 ก.ย. 2026 การลัดคิวเหลือแค่ Premier Access แบบจ่ายเงิน '+tag('ok','ยืนยันแล้ว'))}
-${h('วิธีซื้อ Premier Access')}
-${steps(['ติดตั้งแอป <b>Tokyo Disney Resort</b> และสมัครบัญชีก่อนวันเที่ยว','เพิ่มตั๋วจาก Klook (QR) ของทั้ง 2 คนเข้าแอป','สแกนเข้าสวนก่อน แล้วปุ่มซื้อ Premier Access จะใช้ได้','เลือกเครื่องเล่น เลือกรอบเวลา เลือกทั้ง 2 คน แล้วจ่ายด้วยบัตร','ไปตามเวลาที่ได้ เข้าช่องแถว Premier Access แสดงหน้าจอแอป','ซื้อได้ทีละรายการ ใบถัดไปซื้อได้ตามเวลาที่แอปบอก'])}
+{id:'ds-tips', title:'DPA โชว์ และเคล็ดลับ', html:`
+${note('info','ลัดคิวได้ทางเดียวคือ DPA แบบจ่ายเงิน','Disney Premier Access ซื้อในแอป Tokyo Disney Resort ต่อคนต่อเครื่อง ใบถัดไปซื้อได้เมื่อครบ 60 นาที หรือเมื่อถึงเวลาเข้าของใบที่ถืออยู่ แล้วแต่อย่างไหนถึงก่อน คลิปเลยบอกว่า "กดได้ชั่วโมงละ 1 เครื่อง" '+tag('ok','หน้า DPA ทางการ'))}
+${h('วิธีซื้อ DPA ให้ทั้ง 2 คนด้วยมือถือเครื่องเดียว')}
+${steps(['คืนก่อนไป: ล็อกอินแอป <b>Tokyo Disney Resort</b> เพิ่มตั๋ว Klook (QR) ของทั้ง 2 คน แล้วสร้างกลุ่มในแอปให้ตั๋วอยู่ด้วยกัน คลิปเรียกว่า "ทริค" เพราะกดซื้อให้อีกคนได้เลย','สแกนเข้าสวนแล้ว เปิด Disney Premier Access กด <b>Anna and Elsa\'s Frozen Journey</b> เลือกทั้ง 2 ตั๋ว ได้รอบไหนเอารอบนั้น คลิปย้ำว่าต้องเร็ว','แอปจะบอกเวลาที่ซื้อใบถัดไปได้ ตั้งปลุกไว้ ครบแล้วกด <b>Toy Story Mania!</b> ทันที บางทีเต็มเร็ว คนที่กดก่อนมีสิทธิ์มากกว่า','อีก 1 ชั่วโมงกดใบที่ 3 <b>Tower of Terror</b> ตามคลิป','ถึงเวลาตามรอบ เข้าช่อง Premier Access เปิดหน้าจอแอปให้สแกน','ซื้อแล้วเปลี่ยนหรือคืนเงินไม่ได้ ยกเว้นเครื่องเล่นปิด'])}
 ${h('จะซื้อกี่ใบดี (2 คน)')}
 ${tbl(['แผน','ซื้อ','รวม 2 คน','เหมาะกับ'],[
- ['ประหยัด','ไม่ซื้อ','¥0','ถึงเช้าสุด เล่น Frozen ตอนเปิดสวน รอ Soaring ช่วงค่ำ'],
- ['กลาง (แนะนำ)','Soaring 1 ใบ',yb(4000),'ได้ตัวคิวยาวที่สุดตามเวลาที่เลือก'],
- ['คุ้มเวลา','Soaring + Toy Story Mania',yb(8000),'เล่นได้ครบตัวหลักโดยไม่เสียเวลารอ']
+ ['ตามคลิป (แนะนำ)','Frozen + Toy Story Mania! + Tower of Terror',yb(12000),'เวลาพอเก็บครบ 16 เครื่องเหมือนคลิป'],
+ ['ประหยัด','Frozen + Toy Story Mania!',yb(9000),'ต่อแถว Tower of Terror เอง ~60 นาที อาจตัด #11–14 แทน'],
+ ['ขั้นต่ำ','Frozen ใบเดียว',yb(5000),'ต่อแถวที่เหลือเอง ได้ไม่ครบ 16'],
+ ['เต็มที่','ตามคลิป + Soaring หรือ Indiana Jones',yb(17000)+' / '+yb(15000),'อยากได้ตัวเด่นที่ไม่อยู่ในคลิป']
 ])}
+${h('Standby Pass ในคลิปคืออะไร')}
+<p>Standby Pass เป็นบัตรคิวฟรีในแอป คลิปบอกจำได้ว่ากดใช้กับ Raging Spirits แต่ตอนนี้หน้าทางการไม่มีเครื่องเล่นใน DisneySea ที่ต้องใช้ มีแต่ร้านค้า เช่น Fantasy Springs Gifts และร้านขายของที่ระลึกช่วงคนเยอะ ${tag('ok','หน้า Standby Pass ทางการ')} เครื่องเล่นใน Fantasy Springs ต่อแถวปกติได้ (คลิปต่อแถว Peter Pan) ถ้าวันนั้นแอปขึ้นให้กด Standby Pass ที่เครื่องไหน กดไว้เลย ฟรี คลิปบอกกดได้ 2 ชั่วโมงครั้ง ตรงกับกติกาทางการ (ประเภทเดียวกันต้องรอ 120 นาที หรือถึงเวลาเข้าของใบเดิม) เช้าวันนั้นเปิดหน้าตั๋วในแอปดูอีกที ถ้าขึ้นช่องเวลาเข้า Fantasy Springs แปลว่าวันนั้นจำกัดการเข้าโซน ${tag('chk')}</p>
 ${h('โชว์วันที่ 30 พ.ย.')}
 ${tbl(['โชว์','ที่ไหน','รายละเอียด'],[
  ['Disney Christmas Greeting','Mediterranean Harbor','มิกกี้ ดัฟฟี่ และซานต้าบนเรือ ~15 นาที วันละ 2 รอบ'],
- ['Believe! Sea of Dreams','Mediterranean Harbor','โชว์กลางคืนบนอ่าว ซื้อ PA ที่นั่งชมได้ (เช็คราคาในแอป)'],
+ ['Believe! Sea of Dreams','Mediterranean Harbor','โชว์กลางคืนบนอ่าว DPA ที่นั่งชม '+yen(2500)+'/คน'],
  ['Starbright Christmas','ทั้งสวน','พลุคริสต์มาส ~5 นาที วันละรอบ งดถ้าลมแรง'],
  ['Dance the Globe!','American Waterfront','โชว์เต้นบนเวที ช่วงงาน 25 ปี']
 ])}
-<p class="hs">ช่วงนี้เป็นงานครบรอบ 25 ปี (Sparkling Jubilee) และคริสต์มาส 11 พ.ย.–25 ธ.ค. 2026 ทั้งสวนตกแต่งโทนฟ้า Jubilee Blue มีต้นคริสต์มาสหน้าทางเข้า</p>
-${h('เคล็ดลับวันนั้น')}
-${infog([['หนาว','ค่ำ ~7°C ลมทะเลแรง หมวก ถุงมือ ผ้าพันคอ'],['พักอุ่น','Mermaid Lagoon ในร่ม · Sindbad · 20,000 Leagues'],['กิน','Mobile Order ในแอป เลี่ยงช่วง 12:00–13:30'],['แบต','แอปกินแบตทั้งวัน พกพาวเวอร์แบงก์'],['น้ำ','พกขวดน้ำไปเอง ในสวนแพง'],['ออก','20:30 ก่อนสวนปิด รถไฟไม่แน่น']])}
+<p class="hs">เวลารอบโชว์ดูในแอปวันนั้น หน้าเว็บทางการไม่ระบุเวลา ${tag('chk')} ช่วงนี้เป็นงานครบรอบ 25 ปี และคริสต์มาส 11 พ.ย.–25 ธ.ค. 2026</p>
+${h('ของที่ต้องพกไปต่อแถว')}
+${infog([['หนาว','เช้ามืด ~5–7°C เสื้อหลายชั้น หมวก ถุงมือ ผ้าพันคอ ไคโระ'],['นั่งรอ','แผ่นรองนั่งหรือถุงพลาสติกใหญ่ รอ 2–3 ชม.'],['กิน','ซื้ออาหารเช้าและขนมจากคอนบินิคืนก่อน กินหน้าประตู'],['แบต','แอปกินแบตทั้งวัน พาวเวอร์แบงก์คนละก้อน'],['เปียก','เสื้อกันฝนบาง สำหรับ Aquatopia ตอนค่ำ'],['ออก','20:30 ก่อนสวนปิด รถไฟไม่แน่น']])}
+${links(xlink(DS_DPA,'หน้า DPA ทางการ (ราคา)'), xlink(DS_CLIP,'คลิปต้นฉบับ (TikTok)'))}
 `}
 ]});
 
@@ -2541,6 +2581,5 @@ window.__book = {jump:jump, leaves:function(){ return LEAVES.length; }, leaf:fun
 })();
 
 </script>
-
 </body>
 </html>
